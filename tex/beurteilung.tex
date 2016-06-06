@@ -1,0 +1,9 @@
+\section{Beurteilung}
+
+Der Artikel ist sehr zielorientiert gehalten und präsentiert RDDs und Spark als herausragende Idee und Technologie. Durch die ausfühliche Motivation wird dem Leser der Bedarf nach einem Framework wie Spark nahe gebracht und gut verständlich gemacht. Im Verlauf zeigt der Artikel zunächst immer wieder Fragestellungen oder Anwendungsfälle auf und motiviert den Leser für eine Verbesserung bestehender Verfahren. Anschließend wird eine (Geschwindigkeits-)Verbesserung für das zuvor beschriebene Verfahren präsentiert, die durch RDDs und Spark ermöglicht wird.
+
+Alle Tests und Benchmarks sind unter idealen Bedingungen gemacht worden. Die Autoren diskutieren zwar kurz das Verhalten für \textit{logische Regression} unter Spark bei wenig verfügbar RAM, aber vergleichen dieses Verhalten nicht mit anderen Frameworks oder Hadoop-basierten Implementationen.
+
+Die Autoren erwähnen unter anderem Pregel, HaLoop und Twister als verwandte Arbeiten, vergleichen deren Performance aber nicht mit Spark. Stattdessen geben sie an, dass es möglich ist die Funktionen dieser Frameworks auch mit Spark umsetzen zu können -- ohne durch Benchmarks zu beweisen, dass dies eine klare Verbesserung mit sich bringt. Hier sollten meiner Meinung nach Benchmarks zwischen den origanlen Implementationen und deren Spark-basierten Versionen angeführt werden. Durch die Menge der Tests wird ein wenig verschleiert, dass kein Test im Detail erklärt wird.
+
+Allgemein ist das Paper sehr aussagekräftig und verdeutlicht die Überlegenheit von Spark (in bestimmten Anwendungsfällen) gegenüber anderen Verfahren und Frameworks. Die Autoren stellen gut heraus, warum es einer derartigen Lösung bedarf und vermuten begründet, warum es bisher noch keine gab.

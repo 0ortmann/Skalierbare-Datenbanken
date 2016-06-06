@@ -1,0 +1,22 @@
+\section{Inhaltliche Zusammenfassung}
+
+
+Die Autoren beschreiben ein generelles Vorgehen, um effizient mit verteilten in-memory-Datasets zu arbeiten, welche RDDs genannt werden. RDD steht für „Resilient Distributed Dataset“. Der Artikel beginnt mit einer anschaulichen Motivation -- der Wiederverwendbarkeit von Rechen-Zwischenergebnissen. Es wird deutlich gemacht, dass viele der gängigen Batchprocessing- oder Clustercomputing-Frameworks ineffizient mit intermediären Daten verfahren.
+
+Der Grundidee von RDDs ist, dass sie im nicht-persistenten Speicher eines Clusters vorliegen. Dadurch werden Zugriffe und Prozessierungen stark beschleunigt, denn es müssen (meistens) keine I/O-Zugriffe stattfinden. 
+
+Rechenergebnisse werden durch die wiederholbare Aneinanderkettung von Rechenschritten definiert. Dies wird im Artikel mit „Lineage“ -- „Abstammungslinie“ betitelt. Dabei sind die Rechenschritte stets Transformationen, die auf eine Menge von Objekten angewandt werden, so wie \textit{map, filter, join, etc}. RDDs sind derart partitioniert, dass sie geschickt über das Cluster verteilt werden können. Die Partitionierung kann auch vom User definiert werden. Anhand der Lineage ist es möglich eine gewisse Fehlertoleranz abzubilden. Sollten RDD-Partitionen durch Systemversagen verloren gehen, können sie durch erneute Anwendung der Lineage schnell und nebenläufig rekonstruiert werden. Die Anwendbarkeit von RDDs in der Praxis wurde mit der Implementation von \textit{Spark} demonstriert.
+
+\subsection{Spark}
+
+Die Autoren präsentieren Spark, ein Framework das RDDs implementiert und somit Daten über viele parallele Operationen hinweg schnell zugreifbar macht. Spark ist besonders für iterative Aufgaben geeignet, wie interaktives Data-Mining. Das Framework garantiert Fehlertoleranz und Skalierbarkeit.
+
+Die Autoren geben an, iteratives Machine-Learning sowie auch Google Pregel unter Verwendung von RDDs implementiert zu haben. Ferner behaupten sie, dass das Spark-Framework bis zu 20-mal schneller sein kann als Hadoop und dass die Datenanalyse mit Spark bis zu 40-mal schneller ist. 
+
+Diese Behauptungen werden durch Benchmarks gägngiger Algorithmen belegt. Es wurden einige Algorithmen wie \textit{k-means}, \textit{logische Regression} und \textit{PageRank} via Spark implementiert, was nach eigenen Angaben mit bemerkenswert wenigen Zeilen Code geschehen ist. Anschließend wurden deren Laufzeiten in Kontrast gesetzt zu den herkömmlichen Laufzeiten auf Hadoop sowie auch auf HadoopBinMem, welches shared-memory Policies in Hadoop ermöglicht. Mit Spark ließ sich etwa bei PageRank eine Verdoppelung der Geschwindigkeit feststellen, bei iterativen Machinelearning Verfahren sogar eine bis zu 20-fache Beschleunigung.
+
+Der Artikel weist darauf hin, dass viele der gängigen Hadoop-Anwendungsfälle sowie auch die Funktionen anderer Batchprocessing-Frameworks mit Spark und RDDs abgebildet werden können. Die Autoren beschreiben verschiedenste Anwendungsszenarien wie etwa Verkehrsmodellierung, Spam Klassifikation und interactive Data-Mining. Auch hierfür werden Implementationshinweise für Spark geliefert.
+
+Bei allen Tests haben die Spark Implementationen bedeutend besser abgeschnitten als die Referenzimplementationen auf Hadoop / HadoopBinMem. Die Behauptungen der Autoren was Geschwindigkeitsverbessungen durch Spark angeht wurden bewiesen.
+
+Für den Fall von wenig verfügbarem Hauptspeicher beschreiben die Autoren das Verhalten von \textit{logischer Regression} unter Spark. Die Performance des Algorithmus nimmt linear mit dem verfügbaren Speicher ab.

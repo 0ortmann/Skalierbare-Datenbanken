@@ -1,0 +1,103 @@
+% !TeX spellcheck=de_DE
+% !TeX program=xelatex
+\documentclass[12pt]{article}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{newclude}
+\usepackage{hyperref}
+\usepackage[babelshorthands]{polyglossia}
+\usepackage{fontspec}
+\usepackage{array}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts, amssymb}
+\usepackage[a4paper, hmargin=2.5cm, vmargin=2.0cm]{geometry}
+\usepackage{enumerate}
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{fontawesome}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{todonotes}
+\usepackage{titlesec}
+\usepackage{scrpage2}
+
+\setmainlanguage{german}
+
+\makeatletter
+\def\email#1{{\tt#1}}
+\def\subtitle#1{\gdef\@subtitle{#1}}
+\def\institute#1{\gdef\@institute{#1}}
+\def\authors#1#2{\author{#2}}
+\makeatother
+\input{tex/meta}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash}m{#1}}
+
+\def\calibri#1{\begingroup\fontspec{Calibri}\selectfont#1\endgroup}
+
+\newcommand{\subfigureautorefname}{Abb.}
+\renewcommand{\figureautorefname}{Abbildung}
+\renewcommand{\sectionautorefname}{Abschnitt}
+\renewcommand{\subsectionautorefname}{Unterabschnitt}
+
+\newtheorem{satz}{Satz}[section]
+\newtheorem{defi}{Definition}[section]
+\newtheorem{korol}{Korollar}[section]
+
+\linespread{1.1}
+
+\pagestyle{scrheadings}
+\clearscrheadings
+\ofoot{\pagemark}
+
+\titleformat{\section}[hang]{\fontsize{16pt}{16pt}\selectfont\bf}{\thesection\quad}{0pt}{}{}
+\titlespacing*{\section}{0pt}{24pt}{6pt}
+\titleformat{\subsection}[hang]{\fontsize{14pt}{14pt}\selectfont\bf}{\thesubsection\quad}{0pt}{}{}
+\titlespacing*{\subsection}{0pt}{18pt}{6pt}
+\titleformat{\subsubsection}[hang]{\fontsize{12pt}{12pt}\selectfont\bf}{\thesubsubsection\quad}{0pt}{}{}
+\titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
+
+\pagenumbering{arabic}
+
+\begin{document}
+\urlstyle{same}
+	
+\makeatletter
+\def\@maketitle{%
+	\newpage
+	\null
+	\vskip 2em%
+	\begin{center}%
+		\let \footnote \thanks
+		{\LARGE\bfseries \@title \par}%
+		\vskip .5em%
+		{\Large \@subtitle \par}%
+		\vskip 1.5em%
+		{\large
+			\lineskip .5em%
+			\begin{tabular}[t]{c}%
+				\@author
+			\end{tabular}\par}%
+		\vskip 1em%
+		{\large \@date}%
+	\end{center}%
+	\par
+	\vskip 1.5em}
+\makeatother
+
+\maketitle
+\begin{abstract}
+	% Motivation bzw. Zusammenfassung
+	Dieses Review von „Resilient Distributed Datasets: A Fault-tolerant Abstraction for In-memory Cluster Computing“ \cite{spark2012} stellt zunächst die Autoren des Artikels kurz vor und setzt sie in Relation zu dem Thema des Artikels. Es folgt eine knappe inhaltliche Zusammenfassung des Artikels sowie eine kritische Beurteilung.
+	
+\end{abstract}
+
+\include*{tex/autoren}
+\include*{tex/inhalt}
+\include*{tex/beurteilung}
+
+\nocite{*}
+\bibliographystyle{abbrv}
+\bibliography{bib}
+\end{document}
