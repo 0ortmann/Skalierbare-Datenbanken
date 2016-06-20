@@ -1,0 +1,20 @@
+\section{Inhaltliche Zusammenfassung}
+
+Die Autoren beschreiben die Grundeigenschaften von Cloud Storage Systemen und legen dar, inwiefeern diese sich von sich von ACID basierten Systemen unterscheiden. Diese Systeme fokussieren sich auf einfache und flexible Datenstrukturen, sowie vornehmlich Skalierbarkeit und Performance. Ferner legen die Autoren dar, dass es eine stetig wachsende Menge solcher Cloud Storage Systeme gibt, aber keine Möglichkeit sie „einfach“ miteinander zu vergleichen.
+
+In diesem Zuge treffen die Autoren Grundannahmen für Eigenschaften solcher „Cloud Serving Systeme“, die sie grob zusammenfassen zu „Scale-out“, „Elasticity“ und „High Availability“. Weiterführend wird dargelegt, welche Trade-offs häufig nötig sind, mit Blick auf verschiedene Aspekte des Begriffs „Performance“. Die Autoren stellen die folgenden Begriffe jeweils in direkten Zusammenhang: Lese- \& Schreibperformance, Latenz/Antwortzeit im Gegensatz zu Datendauerhaftigkeit (Durability), synchrone und asynchrone Replikationsmechanismen sowie Partitionierung (zeilen- \& spaltenbasiert).
+
+Nachdem all diese verschiedenen, zum Teil gegensätzlichen Performance Ziele definiert wurden, stellen die Autoren das YCSB -- „Yahoo! Cloud Serving Benchmark“ vor.
+
+
+\subsection{YCSB}
+
+Das YCS Benchmark ist in zwei Ebenen eingeteilt: \textit{Performance} und \textit{Skalierbarkeit}. Die Performance-Ebene misst die Systemlatenz in Korrelation zu wachsender Anfragerate und Durchsatz. Die Messung wird durchgeführt, indem ein System mit fest definierter Hardware mit zunehmender Requestzahl angefragt wird.
+
+Die Skalierbarkeits-Ebene misst sowohl Scale-Up als auch Elastizität -- beides beschreibt das Hinzufügen von Resourcen zu dem System; Elastizität meint das Hinzufügen von Resourcen zur Laufzeit, im Gegensatz zu Scale-Up.
+
+Das Benchmarking Framework ist erweiterbar designed worden. Es ist nach Angaben der Autoren einfach, sowohl die Test-Workloads zu modifizieren als auch via custom Code eigene Packages zu konstruieren, um ein bestimmtes Verhalten testbar zu machen. Per Default kann das YCSB Tool vier Operationen, \textit{insert, update, read \& scan}. Scan wird nicht von allen Cloud Serving Systemen implementiert. 
+
+Der sogenannte Workload-Client des YCSB Tools trifft die Entscheidung, welche Operation wann angewandt werden soll. Dafür kann eine der vordefinierten Verteilungen \textit{uniform, zipfian, latest \& multinomial} gewählt werden. Die Autoren beschreiben einige Schwierigkeiten die sich bei der korrekten Implementation der Zipfian Verteilung ergeben haben. Durch diese recht fein granular wählbaren Systemeingenschaften ist es einem Nutzer möglich, verschiedene Datenbanksysteme mit Blick auf ein vermutetes oder bekanntes Nutzungsschema hin zu evaluieren. 
+
+Die Autoren haben vier Systeme mit dem YCS Benchmark verglichen: \textit{PNUTS, Cassandra, HBase} und eine verteilte \textit{MySQL} Datenbank. Für die genauen Testergebnisse und den Testaufbau sei hier auf den Originaltext verwiesen. Durch die Benchmarks wird deutlich, dass einige Systeme für gewisse Anwendungsfälle wesentliche besser geeignet sind als andere. Der Artikel weist darauf hin, dass das Erkunden der späteren Anwendungsfälle für ein Speichersystem essentiell ist für dessen gerechtfertigten Einsatz.
