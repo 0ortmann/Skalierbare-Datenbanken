@@ -1,0 +1,19 @@
+\section{Inhaltliche Zusammenfassung}
+
+Die Autoren präsentieren \textit{HATs -- high available transactions} und demonstrieren damit, dass es möglich ist transaktionale Datenbankgarantien in einem hochverfügbaren Kontext zu gewährleisten. Zur Motivation wird ausgeleuchtet, dass viele moderne verteilte Systeme sich durch das CAP Theorem eingeschränkt sehen. Entwickler sind häufig gezwungen \textit{Tradeoffs} einzugehen und Faktoren wie Verfügbarkeit, Latenz oder Konsistenz gegeneinander abzuwägen. 
+
+ACID Eigenschaften sind für viele Systeme eine wünschenswerte Eigenschaft. Durch das CAP Theorem steht fest: „strong semantics have a cost“\cite{hnc13}. Folglich stehen die ACID Eigenschaften im scheinbaren Widerspruch zu hochverfügbaren Systemen; insbesondere scheinen sie nicht partitionierungsresistent. Die Autoren heben hervor, dass dies nicht unbedingt der Fall sein muss. Sie erörten knapp die Möglichkeit, dass Verfügbarkeit auch im Falle von Netzwerkpartitionen einfach gewährleistet werden kann, indem alle laufenden Transaktionen einfach abgebrochen werden. Das ist nicht unbedingt sinvoll, verdeutlicht aber das Bestreben der Autoren, zu demonstrieren dass Verfügbar und ACID nicht unvereinbar sind.
+
+Ferner werden Serialisierbarkeit und Nicht-Verfügbarkeit in Zusammenhang gesetzt und die Autoren gehen kurz auf den Status Quo der Isolationsmechanismen moderner Systeme ein. Viele gewähren überraschender Weise nur sehr schwache Isolation.
+
+
+\subsection{High Available Transactions}
+Mit HATs stellen die Autoren eine Möglichkeit vor, die es ermöglicht ACID Eigenschaften mit hochverfügbaren Systemen zu realisieren -- wenn auch nicht unbedingt Serialisierbarkeit sinnvoll abgebildet werden kann. Dabei fokussieren sie sich auf zwei Semantiken, „Read Committed“ und „ANSI SQL Repeatable Read“ und erläutern auf welche Weise diese auch für hochverfügbare Systeme erreicht werden können.
+
+Read Committed ist eine schwache Isolationseigenschaft, die beschreibt, dass nur committete Daten gelesen werden dürfen. Damit verhindert es „dirty read“ und „dirty write“. Um dies in hochverfügbaren Systeme zu gewährleiten schlagen die Autoren zwei Möglichkeiten vor. Zum einen könnten Server eingehende Nachrichten solange buffern, bis sie eine Commit-Nachricht erhalten. Zum anderen könnten Clients ihre „Writes“ buffern, bis sie committen und alles auf einmal versenden. Um dirty writes zu verhinden, muss es eine Transaktionsordnung geben; die Autoren schlagen UUIDs und timestamps vor.
+
+ANSI Repeatable Read beschreibt die Wiederholbarkeit von Lesezugriffen innerhalb einer Transaktion. Dafür schlagen die Autoren vor, dass Clients Daten cachen und diese bei einem Read verwenden; nur im Fall, dass Daten nicht im Cache liegen werden diese vom Server angefragt. Die Client Caches werden bei jedem Write geupdated. Nach Commits oder Aborts wird das Cache geleert.
+
+Die Autoren weisen in der Diskussion darauf hin, dass weitere ACID Eigenschaften in hochverfügbaren Systemen realisiert werden können; für deren praktische Umsetzung sei jedoch noch einiges an weiterer Arbeit nötig. Sie weisen auf diverse Probleme hin, die bei unterschiedlichen Implementationsansätzen entstehen könnten und die gewisse Transaktionssemantiken unmöglich machen -- etwa Locking oder Zeitstempel Synchronisation. Die Autoren verteidigen kurz die Nützlichkeit von ACID Transaktionen in hochverfügbaren Systemen.
+
+Zuletzt diskutieren die Autoren einige Semantiken die mit HATs nicht abgebildet werden können wie Aktualität der Daten und globale Integritätseigenschaften. Der Ausblick auf vergleichbare Systeme zeigt ein breites Anwendungsfeld für HATs auf.
